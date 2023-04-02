@@ -39,16 +39,16 @@ export default function Support() {
 
   return (
     <div>
-      <h1 className='mb-4 text-lg font-bold'>Support Creator </h1>
+      <h1 className='mb-4 text-lg font-bold'> Reconoce su contribución enviando cUSD </h1>
       <div className='w-full'>
-        <input className='w-full border-2 rounded-md mb-2 p-2' type="number" placeholder='amount' value={amount} onChange={handleAmount} />
+        <input className='w-full border-2 rounded-md mb-2 p-2' type="number" placeholder='Cantidad' value={amount} onChange={handleAmount} />
       </div>
       <div>
-        <textarea className='w-full border-2 rounded-md p-2' placeholder='Say something nice' value={comment} onChange={handleComment} />
+        <textarea className='w-full border-2 rounded-md p-2' placeholder='Comentario' value={comment} onChange={handleComment} />
       </div>
       <div>
         <input className='w-full border-2 rounded-md p-2' type="text" placeholder='wallet Address' disabled value={props.walletAddress} />
       </div>
-      <button className=' w-full bg-yellow-300 mt-4 p-4 rounded-md' onClick={sendSupport}>Send Support</button>
+      <button className=' w-full bg-yellow-300 mt-4 p-4 rounded-md' onClick={sendSupport}>Envía tu recomocimiento</button>
     </div>
 )}

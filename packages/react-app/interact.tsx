@@ -12,10 +12,10 @@ export function donationContract(kit: any) {
     * Save the new feed to the blockchain
     */
 export const createCreator = async (address: string | null | undefined, username: string,
-  profilePixUrl: string, userBio: string, kit: any) => {
+  profilePixUrl: string, userBio: string, userSubmission: string, kit: any) => {
   try {
     const txHash = await donationContract(kit).methods.setCreatorDetail(
-    username, profilePixUrl, userBio
+    username, profilePixUrl, userBio, userSubmission
     ).send({
       from: address,
     })
@@ -50,7 +50,7 @@ export const getCreators = async (kit: any) => {
   }
 }
 
-export const creatorWithdrawTip = async (address: string | null | undefined, index: string | string[] | undefined, amount: BigNumber, kit: any) => {
+export const creatorWithdrawTip = async (address: string | null | undefined, index: string | string[] | undefined,  amount: BigNumber, kit: any) => {
   try {
     const txHash = await donationContract(kit).methods.creatorWithdrawTip(index, amount).send({
       from: address,

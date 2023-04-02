@@ -14,9 +14,11 @@
         "@celo/react-celo": "^4.3.0",
         "@headlessui/react": "^1.7.8",
         "@heroicons/react": "^2.0.14",
+        "@popperjs/core": "^2.11.7",
         "axios": "^1.3.2",
         "ethers": "^5.7.2",
         "next": "13.1.6",
+        "popper.js": "^1.16.1",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "wagmi": "^0.11.2"

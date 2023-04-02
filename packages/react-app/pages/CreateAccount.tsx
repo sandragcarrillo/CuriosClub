@@ -6,6 +6,7 @@ import { createCreator } from '@/interact';
 export default function CreateAccount() {
   const [username, setUsername] = useState<string>("")
   const [userBio, setUserBio] = useState<string>("")
+  const [userSubmission, setUserSubmission] = useState<string>("")
   const [profilePix, setProfilePix] = useState<string | File | number | readonly string[] | undefined>(undefined)
   const { address, kit } = useCelo()
   
@@ -20,6 +21,12 @@ export default function CreateAccount() {
 
   }
 
+  const handleUserSubmission = (e: React.FormEvent<HTMLTextAreaElement>) => {
+    setUserSubmission(e.currentTarget.value)
+
+  }
+
+
    const handleprofilePix = (e: React.ChangeEvent<HTMLInputElement>) => {
      if (e.target.files != null) {
       setProfilePix(e.target.files[0]); 
@@ -29,17 +36,17 @@ export default function CreateAccount() {
   
   const createAccount = async () => {
     if (!address) {
-      alert("Please connect your wallet")
+      alert("Por favor conecta tu billetera")
       return
     }
 
     if (username === "") {
-      alert("Username required!")
+      alert("¡No olvides agregar tu nombre de usuario!")
       return
     } 
 
     if (userBio === "") {
-      alert("Brief bio required")
+      alert("No olvides agregar tu respuesta al reto")
       return
     }
     if (username.indexOf(' ') >= 0) {
@@ -49,28 +56,32 @@ export default function CreateAccount() {
     } 
 
     if (!profilePix) {
-      alert("Please upload your profile photo")
+      alert("Agrega tu foto de perfil")
       return
     }
 
     const pinataHash = await pinFileToPinata(profilePix)
-    await createCreator(address, username, pinataHash, userBio, kit)  
+    await createCreator(address, username, pinataHash, userBio, userSubmission, kit)  
   }
 
   return (
     <div>
-      <h1 className='mb-4 text-lg font-bold'>Are you a Creator? Create Account here </h1>
+      
+      <h1 className='mb-4 text-lg font-bold text-center'>Contribuye al reto de Talent Protocol </h1>
       <div className='w-full'>
-        <input className='w-full border-2 rounded-md mb-2 p-2' type="text" placeholder='username' value={username} onChange={handleUsername} />
+        <input className='w-full border-2 rounded-md mb-2 p-2' type="text" placeholder='Nombre de usuario' value={username} onChange={handleUsername} />
       </div>
       <div>
-        <textarea className='w-full border-2 rounded-md p-2' placeholder='Brief bio' value={userBio} onChange={handleUserBio} />
+        <textarea className='w-full border-2 rounded-md p-2' placeholder='Bio: cuéntanos sobre ti' value={userSubmission} onChange={handleUserSubmission} />
       </div>
-      <label>Upload your profile pix</label>
+      <div>
+        <textarea className='w-full h-100 border-2 rounded-md p-2' placeholder='Respuesta o feedback del reto' value={userBio} onChange={handleUserBio} />
+      </div>
+      <label>Agrega tu foto de perfil</label>
       <div>
         <input className='w-full' type="file" id="formFile" onChange={handleprofilePix} />
       </div>
-      <button className=' w-full bg-yellow-300 mt-4 p-4 rounded-md' onClick={createAccount}>Create Account</button>
+      <button className=' w-full bg-yellow-300 mt-4 p-4 rounded-md text-bold' onClick={createAccount}>Subir contribución</button>
     </div>
   )
 }

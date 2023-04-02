@@ -1,6 +1,6 @@
 import axios from "axios"
 const FormData = require("form-data");
-const JWT = `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`
+const JWT = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI2YWU3YmFiMS1iMzcxLTQzNzEtYThkOC1jZmU1NjVkYzBhZDgiLCJlbWFpbCI6InNhbmNhcnJpbGxvNDExQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiI5NDgxZWVhMzgwMGZiMDZjY2U3MSIsInNjb3BlZEtleVNlY3JldCI6IjBjNWIzZmIyOWFkN2NkNGNhZjAwYTlmZWNhYjczNWMyOTgxOWE1NzZlZTUxOGVmYWU4ZmY0MjljYjU4M2VhZDkiLCJpYXQiOjE2ODA0MDM2Njd9.fnUsHQzlD9aL_hLTtbcGmQYrhHDjZ1ePoBXf2gBVKbM`
 
 export const pinFileToPinata = async (selectedFile : string | File | number | readonly string[] | undefined) => {
   const formData = new FormData();
@@ -21,7 +21,7 @@ export const pinFileToPinata = async (selectedFile : string | File | number | re
         maxBodyLength: Infinity,
         headers: {
           'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
-          Authorization: JWT
+          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI2YWU3YmFiMS1iMzcxLTQzNzEtYThkOC1jZmU1NjVkYzBhZDgiLCJlbWFpbCI6InNhbmNhcnJpbGxvNDExQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiI5NDgxZWVhMzgwMGZiMDZjY2U3MSIsInNjb3BlZEtleVNlY3JldCI6IjBjNWIzZmIyOWFkN2NkNGNhZjAwYTlmZWNhYjczNWMyOTgxOWE1NzZlZTUxOGVmYWU4ZmY0MjljYjU4M2VhZDkiLCJpYXQiOjE2ODA0MDM2Njd9.fnUsHQzlD9aL_hLTtbcGmQYrhHDjZ1ePoBXf2gBVKbM"
         }
       });
       console.log(res.data.IpfsHash);
