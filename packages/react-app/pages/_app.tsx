@@ -1,61 +1,64 @@
 import "../styles/globals.css";
-import "@rainbow-me/rainbowkit/styles.css";
+import React, { useState, useEffect } from "react";
 import type { AppProps } from "next/app";
-import {
-  connectorsForWallets,
-  RainbowKitProvider
-} from "@rainbow-me/rainbowkit";
-import { 
-  metaMaskWallet, 
-  omniWallet, 
-  walletConnectWallet 
-} from "@rainbow-me/rainbowkit/wallets";
-import { configureChains, createClient, WagmiConfig } from "wagmi";
-import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
+import { CeloProvider, Alfajores, NetworkNames } from '@celo/react-celo';
+import '@celo/react-celo/lib/styles.css';
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import { theme as chakraTheme } from '@chakra-ui/react';
+
 
 // Import known recommended wallets
 import { Valora, CeloWallet, CeloDance } from "@celo/rainbowkit-celo/wallets";
 
-// Import CELO chain information
-import { Alfajores, Celo } from "@celo/rainbowkit-celo/chains";
 
 import Layout from "../components/Layout";
 
-const { chains, provider } = configureChains(
-  [Alfajores, Celo],
-  [jsonRpcProvider({ rpc: (chain) => ({ http: chain.rpcUrls.default.http[0] }) })]  
-);
 
-const connectors = connectorsForWallets([
-  {
-    groupName: "Recommended with CELO",
-    wallets: [
-      Valora({ chains }),
-      CeloWallet({ chains }),
-      CeloDance({ chains }),
-      metaMaskWallet({ chains }),
-      omniWallet({ chains }),
-      walletConnectWallet({ chains }),
-    ],
-  },
-]);
-
-const wagmiClient = createClient({
-  autoConnect: true,
-  connectors,
-  provider,
+const theme = extendTheme({
+  ...chakraTheme,
+  // Aquí puedes personalizar el tema de Chakra UI según tus necesidades
 });
 
 function App({ Component, pageProps }: AppProps) {
-  return (
-    <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains} coolMode={true}>
+  const [showChild, setShowChild] = useState(false);
+  useEffect(() => {
+    setShowChild(true);
+  }, []);
+
+  if (!showChild) {
+    return null;
+  }
+
+  if (typeof window === 'undefined') {
+    return <></>;
+  } else {
+    return (
+      <CeloProvider
+        dapp={{
+          name: 'celo-composer dapp',
+          description: 'My awesome celo-composer description',
+          url: 'https://example.com',
+          icon: 'https://example.com/favicon.ico',
+        }}
+        // defaultNetwork={Alfajores.name}
+        networks={[Alfajores]}
+        network={{
+          name: NetworkNames.Alfajores,
+          rpcUrl: 'https://alfajores-forno.celo-testnet.org',
+          graphQl: 'https://alfajores-blockscout.celo-testnet.org/graphiql',
+          explorer: 'https://alfajores-blockscout.celo-testnet.org',
+          chainId: 44787,
+        }}
+        connectModal={{
+          providersOptions: { searchable: true },
+        }}
+      >
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </RainbowKitProvider>
-    </WagmiConfig>
-  )
+      </CeloProvider>
+    )
+  }
 }
 
 export default App;
