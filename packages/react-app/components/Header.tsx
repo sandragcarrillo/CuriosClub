@@ -1,9 +1,47 @@
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import {
+    useCelo,
+  } from '@celo/react-celo';
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import Link from 'next/link'
+import { getCreators } from "@/interact";
+
+interface ICreator {
+  donationsReceived: string;
+  id: number;
+  ipfsHash: string; 
+  supporters: number; 
+  userbio: string;
+  username: string;
+  walletAddress: string
+}
 
 export default function Header() {
+  const [data, setData] = useState<any>({})
+
+    let [componentInitialized, setComponentInitialized] = useState(false);
+    let {
+        initialised,
+        address,
+        kit,
+        connect,
+        disconnect
+    } = useCelo();
+
+    useEffect(() => {
+      if (initialised) {
+        setComponentInitialized(true);
+      }
+      const creatorData = async () => {
+        const creators = await getCreators(kit)
+        return setData(!address ? null : creators.find((item: any) => item.walletAddress === address))
+    }
+    creatorData()
+    }, [initialised, kit]);
+    console.log("data", data)
+    console.log(address)
     return (
       <Disclosure as="nav" className="bg-prosperity border-b border-black">
         {({ open }) => (
@@ -23,20 +61,51 @@ export default function Header() {
                 </div>
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="flex flex-shrink-0 items-center">
-                    <Image className="block h-8 w-auto sm:block lg:block" src="/logo.svg" width="24" height="24" alt="Celo Logo" />
+                    <Image className="block h-8 w-auto lg:block" src="/logo.svg" width="24" height="24" alt="Celo Logo" />
                   </div>
                   <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                    <a
-                      href="#"
+                    <Link href="/"
                       className="inline-flex items-center border-b-2 border-black px-1 pt-1 text-sm font-medium text-gray-900"
                     >
                       Home
-                    </a>
-                    
+                    </Link>                    
                   </div>
+                  { data === undefined || address === null ? null : 
+                    <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <Link className="inline-flex items-center border-b-2 border-black px-1 pt-1 text-sm font-medium text-gray-900"
+                          href={{
+                            pathname: `/Dashboard/`,
+                            // query: { username: address === null ? null : data.username}// the data
+                          }}
+                      >
+                      Dashboard                 
+                        </Link>
+                                   
+                  </div>
+                  }
+                  
                 </div>
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <ConnectButton showBalance={{smallScreen: true, largeScreen: false}} />
+                  {componentInitialized && address ? (
+                    <div>
+                      <button className="border-2 border-black rounded-md mr-2 p-2">{`${address.substring(0,15)}...`}</button>
+                       <button
+                      type="button"
+                      className="inline-flex content-center place-items-center rounded-full border border-wood bg-black py-2 px-5 text-md font-medium text-snow hover:bg-forest"
+                      onClick={disconnect}
+                    >Disconnect</button>
+                    </div>
+
+                   
+                  ) : (
+                    <button
+                      type="button"
+                      className="inline-flex content-center place-items-center rounded-full border border-wood bg-forest py-2 px-5 text-md font-medium text-snow hover:bg-black"
+                      onClick={() =>
+                        connect().catch((e) => console.log((e as Error).message))
+                      }
+                    >Connect</button>
+                  )}
                 </div>
               </div>
             </div>
