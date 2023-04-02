@@ -115,12 +115,12 @@ export default function Home() {
        
         </div>
         <div>
-        <p>Tenemos una nueva funcionalidad: mintear tokens para que otras personas puedan invertir en tu talento. 
+        <p className='pt-5 pb-5'>Tenemos una nueva funcionalidad: mintear tokens para que otras personas puedan invertir en tu talento. 
             Mintea tus tokens, documenta tu experiencia para mostrarle a otros usuarios a utilizar esta funcionalidad
         </p>
         <div className='flex-col gap-10 '>
-        <p className="">Applicantes: 2</p>
-          <p className="">Recompensa: 100 cUSD</p>
+        <p className="font-bold">Applicantes: 2</p>
+          <p className="font-bold">Recompensa: 100 cUSD</p>
             <button className="bg-black text-white rounded-md p-4 mt-4 pr-4" onClick={() => window.open("/CreateAccount")}> Aplicar al reto</button> 
         </div>
  

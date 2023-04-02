@@ -65,9 +65,9 @@ export default function Header() {
                   </div>
                   <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                     <Link href="/"
-                      className="inline-flex items-center border-b-2 border-black px-1 pt-1 text-sm font-medium text-white"
+                      className="inline-flex items-center border-b-2 border-black px-1 pt-1 text-md font-bold text-white"
                     >
-                      Home
+                      CuriosClub
                     </Link>                    
                   </div>
                   { data === undefined || address === null ? null : 
