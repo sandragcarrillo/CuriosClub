@@ -24,10 +24,9 @@ export default function Dashboard() {
     <div>
       { !address ?  <div>Conecta tu billetera</div> : 
         <div className="w-full mt-2 mx-2 border-2 border-yellow-300 p-4 rounded-md">
-        <Image src={`https://ipfs.io/ipfs/${data.ipfsHash}`}  alt="profile-pix" width={20} height={20} />
+        <Image src={`https://ipfs.io/ipfs/${data.ipfsHash}`}  alt="profile-pix" width={2} height={2} />
         <p>{data.username}</p>
         <p>{data.userBio}</p>
-        <p>{data.userSubmission}</p>
         <p className="mb-4">{`Supporters: ${data.supporters}`}</p>
           {/* <a className='className="w-full bg-yellow-300 rounded-md p-2 my-4"' href="Withdraw">Withdraw Tip</a> */}
         <Link

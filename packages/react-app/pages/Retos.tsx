@@ -30,8 +30,8 @@ export default function Home() {
         </h1>
         <button className="bg-yellow-300 rounded-md p-4 mt-2 text-bold font-bold mb-4" onClick={() => window.open("https://onetreeplanted.org/")}> Visita a OneTreePlanted</button>
       
-        {/* <button className="bg-yellow-300 rounded-md p-4 mt-4 pr-4" onClick={() => window.open("CreateAccount")}> Create Creator Account</button>
-        */}
+       
+       
 
       </div>
 
@@ -104,39 +104,56 @@ export default function Home() {
 
           </div>
         </div>
+        
 
-        <div className="flex justify-around lg:col-span-2 h-fit">
-        {!address ? <div className='text-center mt-2'>Conecta tu billetera para ver las contribuciones</div>
-          : creators && creators.map((item, index) => <div key={index} className="w-3/4 mt-2 mx-2 border-2 border-black p-4 rounded-md">
-            <div className='flex space-between gap-3 align-center align-center'>
-            <Image src={`https://ipfs.io/ipfs/${item.ipfsHash}`} alt="profile-pix" width={50} height={40} className="rounded-xl" />
-            <div>
-            <p className='font-bold'>{item.username}</p>
-            <p className='font-italic text-sm'>En respuesta al reto de Talent Protocol</p>
-            </div>
-            </div>
-
-        <p>{item.userbio}</p>
-          <p className="">{`Reconocimientos: ${item.supporters}`}</p>
-          <Link
-            href={{
-              pathname: `/Support/`,
-              query: { id: item.id, walletAddress: item.walletAddress }// the data
-            }}
-          >
-            <button className="w-full bg-black text-white text-bold rounded-md p-2 my-2">{` Reconoce a ${item.walletAddress.substring(0,7)}...`}</button>
-          </Link>
+        <div className="flex-col  lg:col-span-2 h-fit border-2 border-black rounded-xl p-10">
+        <div className=' gap-3 align-center align-center'>
+         <Image src={`https://pbs.twimg.com/profile_images/1582135788581621764/7yN00JTO_400x400.jpg`} alt="profile-pix" width={50} height={40} className="rounded-xl" />
+         <p className='font-bold'>Talent Protocol</p>
+        <p className='font-italic text-sm'>Nueva funcionalidad</p>
+        <div>
+       
+        </div>
+        <div>
+        <p>Tenemos una nueva funcionalidad: mintear tokens para que otras personas puedan invertir en tu talento. 
+            Mintea tus tokens, documenta tu experiencia para mostrarle a otros usuarios a utilizar esta funcionalidad
+        </p>
+        <div className='flex-col gap-10 '>
+        <p className="">Applicantes: 2</p>
+          <p className="">Recompensa: 100 cUSD</p>
+            <button className="bg-black text-white rounded-md p-4 mt-4 pr-4" onClick={() => window.open("/CreateAccount")}> Aplicar al reto</button> 
+        </div>
+ 
+        </div>
+       
         </div>      
-      )}       
       </div>   
 
+      <div className="flex-col  lg:col-span-2 h-fit border-2 border-black rounded-xl p-10">
+        <div className=' gap-3 align-center align-center'>
+         <Image src={`https://pbs.twimg.com/profile_images/1582135788581621764/7yN00JTO_400x400.jpg`} alt="profile-pix" width={50} height={40} className="rounded-xl" />
+         <p className='font-bold'>Metamask</p>
+        <p className='font-italic text-sm'>Nueva funcionalidad</p>
+        <div>
+       
+        </div>
+        <div>
+        <p>Tenemos una nueva funcionalidad: mintear tokens para que otras personas puedan invertir en tu talento. 
+            Mintea tus tokens, documenta tu experiencia para mostrarle a otros usuarios a utilizar esta funcionalidad
+        </p>
+        <div className='flex-col gap-10 '>
+        <p className="">Applicantes: 2</p>
+          <p className="">Recompensa: 100 cUSD</p>
+            <button className="bg-black text-white rounded-md p-4 mt-4 pr-4" onClick={() => window.open("/CreateAccount")}> Aplicar al reto</button> 
+        </div>
+ 
+        </div>
+       
+        </div>      
+      </div>  
 
       </div>
-
+</div>
     
-   
-
-         
-    </div>
   )
 }

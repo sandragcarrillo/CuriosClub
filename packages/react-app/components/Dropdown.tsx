@@ -1,5 +1,6 @@
 import React from "react";
 import Popper from "popper.js";
+import Link from "next/link";
 
 const Dropdown = ({ color }) => {
   // dropdown props
@@ -49,26 +50,24 @@ const Dropdown = ({ color }) => {
               }
               style={{ minWidth: "12rem" }}
             >
-              <a
-                href="#pablo"
+              <Link
+                  href="/Retos"
                 className={
                   "text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent " +
                   (color === "white" ? " text-gray-800" : "text-white")
                 }
-                onClick={e => e.preventDefault()}
               >
                 Retos
-              </a>
-              <a
-                href="#pablo"
+              </Link>
+              <Link
+                  href="/"
                 className={
                   "text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent " +
                   (color === "white" ? " text-gray-800" : "text-white")
                 }
-                onClick={e => e.preventDefault()}
               >
                 Contribuciones
-              </a>
+              </Link>
               
             </div>
           </div>
